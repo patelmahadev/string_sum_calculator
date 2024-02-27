@@ -3,7 +3,13 @@ require 'minitest/autorun'
 class StringCalculator
   def self.add(numbers)
     return 0 if numbers.empty?
-    numbers = numbers.split(/,|\n/)
+
+    if numbers.start_with?("//")
+      delimiter, numbers = numbers[2..].split("\n", 2)
+      numbers = numbers.split(/#{Regexp.escape(delimiter)}|\n/)
+    else
+      numbers = numbers.split(/,|\n/)
+    end
     numbers.map(&:to_i).sum
   end
 end
@@ -32,5 +38,9 @@ class StringCalculatorTest < Minitest::Test
 
   def test_add_with_multiple_numbers
     assert_equal 15, StringCalculator.add("1,2,3,4,5")
+  end
+
+  def test_add_with_different_delimiter
+    assert_equal 3, StringCalculator.add("//;\n1;2")
   end
 end
