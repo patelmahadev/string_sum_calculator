@@ -17,7 +17,8 @@ end
 puts StringCalculator.add("") # => 0
 puts StringCalculator.add("1") # => 1
 puts StringCalculator.add("1,5") # => 6
-puts StringCalculator.add("4\n4,8") # => 6
+puts StringCalculator.add("4\n4,8") # => 16
+puts StringCalculator.add("//;\n3;4") # => 7
 
 class StringCalculatorTest < Minitest::Test
   def test_add_with_empty_string
